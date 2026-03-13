@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { TableService } from '../../../core/services/table.service';
-import { Table } from '../../../core/models/table.model';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
+import { Table } from '../../../models/table.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class FloorPlanComponent implements OnInit {
 
-  tables: Table[] = [];
+  @Input() tables: Table[] = [];
 
   scale = 1;           // zoom
   offsetX = 0;         // pan X
@@ -32,13 +31,14 @@ export class FloorPlanComponent implements OnInit {
   @ViewChild('layoutImage') layoutImage!: ElementRef<HTMLImageElement>;
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef<HTMLDivElement>;
 
-  constructor(private tableService: TableService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.tableService.getTables().subscribe(data => {
-      this.tables = data;
-      this.updateDimensions();
-    });
+    this.updateDimensions();
+  }
+
+  ngOnChanges() {
+    this.updateDimensions();
   }
 
   ngAfterViewInit(): void {

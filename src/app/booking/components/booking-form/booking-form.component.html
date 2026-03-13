@@ -1,1 +1,104 @@
-<p>booking-form.component works!</p>
+<div class="bg-white shadow-md rounded-xl p-6 mb-6">
+
+  <h2 class="text-xl font-semibold mb-4">
+    Find a Table
+  </h2>
+
+  <div class="grid md:grid-cols-3 gap-4">
+
+    <!-- Guests -->
+    <div>
+      <label class="block text-sm font-medium mb-1">
+        Guests
+      </label>
+      <input
+        type="number"
+        [(ngModel)]="capacity"
+        class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        placeholder="Number of guests"
+      />
+    </div>
+
+    <!-- Start Time -->
+    <div>
+      <label class="block text-sm font-medium mb-1">
+        Start Time
+      </label>
+      <input
+        type="datetime-local"
+        [(ngModel)]="startTime"
+        class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+    </div>
+
+    <!-- End Time -->
+    <div>
+      <label class="block text-sm font-medium mb-1">
+        End Time
+      </label>
+      <input
+        type="datetime-local"
+        [(ngModel)]="endTime"
+        class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+    </div>
+
+  </div>
+
+  <!-- Preferences -->
+  <div class="mt-4">
+
+    <p class="text-sm font-medium mb-2">
+      Preferences
+    </p>
+
+    <div class="flex flex-wrap gap-4">
+
+      <label class="flex items-center gap-2">
+        <input type="checkbox" [(ngModel)]="nearWindow">
+        <span>Near window</span>
+      </label>
+
+      <label class="flex items-center gap-2">
+        <input type="checkbox" [(ngModel)]="quietCorner">
+        <span>Quiet corner</span>
+      </label>
+
+      <label class="flex items-center gap-2">
+        <input type="checkbox" [(ngModel)]="nearKidsZone">
+        <span>Kids zone</span>
+      </label>
+
+      <label class="flex items-center gap-2">
+        <input type="checkbox" [(ngModel)]="accessible">
+        <span>Accessible</span>
+      </label>
+
+    </div>
+
+  </div>
+
+  <!-- Recommendation -->
+  <div class="mt-4">
+
+    <label class="flex items-center gap-2">
+      <input type="checkbox" [(ngModel)]="recommend">
+      <span>Recommend best table</span>
+    </label>
+
+  </div>
+
+  <!-- Button -->
+  <div class="mt-6">
+
+    <button
+      (click)="submit()"
+      [disabled]="!capacity"
+      class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+    >
+      Search Tables
+    </button>
+
+  </div>
+
+</div>
