@@ -1,11 +1,11 @@
 <div class="search-page max-w-6xl mx-auto p-4">
 
   <app-booking-form
-    (search)="search($event)">
+    (search)="updateFilteredTables($event)">
   </app-booking-form>
 
   <app-floor-plan
-    [tables]="tables">
+    [tables]="filteredTables">
   </app-floor-plan>
 
 </div>

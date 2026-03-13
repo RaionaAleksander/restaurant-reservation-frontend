@@ -39,14 +39,14 @@ export class FloorPlanComponent implements OnInit {
   ngOnInit(): void {
     this.tableService.getAllTables().subscribe(data => {
       this.allTables = data;
+      this.tables = data;
       this.updateDimensions();
     });
   }
 
   ngOnChanges() {
-    /*if (this.tables?.length) {
-      this.allTables = this.tables.map(t => ({ ...t }));
-    }*/
+    console.log('Filtered tables received:', this.tables);
+
     this.updateDimensions();
   }
 
@@ -158,5 +158,24 @@ export class FloorPlanComponent implements OnInit {
       default:
         return 'bg-gray-500';
     }
+  }
+
+  /*getTableClass(table: Table): string {
+    const isAvailable = this.tables.some(t => t.id === table.id);
+
+    if (!isAvailable) {
+      return 'bg-gray-400';
+    }
+
+    return this.getZoneClass(table.zone);
+  }*/
+
+  getTableClass(table: Table): string {
+    const isAvailable = this.tables.some(t => t.id === table.id);
+    if (!isAvailable) {
+      return 'bg-gray-400';
+    }
+
+    return this.getZoneClass(table.zone);
   }
 }

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TableService } from '../../../core/services/table.service';
+import { Table } from '../../../models/table.model';
 
 
 @Component({
@@ -10,6 +12,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './booking-form.component.css',
 })
 export class BookingFormComponent {
+
+  constructor(private tableService: TableService) {}
 
   @Output() search = new EventEmitter<any>();
 
@@ -34,16 +38,20 @@ export class BookingFormComponent {
   selectedZone: string | null = null;
 
   submit() {
-    this.search.emit({
-      zone: this.selectedZone,
-      capacity: this.capacity,
+    const filters: any = {
+      capacity: Number(this.capacity),
       startTime: this.startTime,
       endTime: this.endTime,
-      nearWindow: this.nearWindow,
-      quietCorner: this.quietCorner,
+      zone: this.selectedZone,
       nearKidsZone: this.nearKidsZone,
+      quietCorner: this.quietCorner,
+      nearWindow: this.nearWindow,
       accessible: this.accessible,
-      recommend: this.recommend
+      recommend: true
+    };
+
+    this.tableService.getTables(filters).subscribe((tables: Table[]) => {
+      this.search.emit(tables);
     });
   }
 }

@@ -27,7 +27,7 @@
         class="absolute w-8 h-8 rounded-full flex items-center justify-center text-white text-xs cursor-pointer hover:bg-yellow-500"
         [style.left.px]="getLeft(table)"
         [style.top.px]="getTop(table)"
-        [ngClass]="getZoneClass(table.zone)"
+        [ngClass]="getTableClass(table)"
         title="Table {{table.tableNumber}} ({{table.posX}}, {{table.posY}})"
       >
         {{table.tableNumber}}
