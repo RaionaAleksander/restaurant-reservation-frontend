@@ -24,8 +24,18 @@ export class BookingFormComponent {
 
   recommend = false;
 
+  zones = [
+    { value: null, label: '-' },
+    { value: 'PRIVATE_ROOM', label: 'Private room' },
+    { value: 'TERRACE', label: 'Terrace' },
+    { value: 'MAIN_HALL', label: 'Main hall' }
+  ];
+
+  selectedZone: string | null = null;
+
   submit() {
     this.search.emit({
+      zone: this.selectedZone,
       capacity: this.capacity,
       startTime: this.startTime,
       endTime: this.endTime,
