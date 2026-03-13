@@ -1,1 +1,41 @@
-<p>floor-plan.component works!</p>
+<div class="text-center my-4">
+  <h1 class="text-2xl font-bold">Restaurant Floor Plan</h1>
+</div>
+
+<div
+  #mapContainer
+  class="relative mx-auto border border-gray-800 cursor-grab overflow-hidden"
+  (wheel)="onWheel($event)"
+  (pointerdown)="startDrag($event)"
+  (pointerup)="stopDrag($event)"
+  (pointerleave)="stopDrag()"
+  (pointermove)="drag($event)"
+  [style.height.px]="containerHeight"
+  style="max-width: 1000px"
+>
+  <div
+    class="absolute top-0 left-0"
+    [style.transform]="'translate(' + offsetX + 'px,' + offsetY + 'px) scale(' + scale + ')'"
+    [style.transformOrigin]="'top left'"
+  >
+    <img
+      #layoutImage
+      src="http://localhost:8080/restaurant-layout.png"
+      class="block w-full h-auto"
+      alt="Restaurant Layout"
+      (load)="onImageLoad()"
+    />
+
+    @for (table of tables; track table.id) {
+      <div
+        class="absolute w-8 h-8 rounded-full flex items-center justify-center text-white text-xs cursor-pointer hover:bg-yellow-500"
+        [style.left.px]="getLeft(table)"
+        [style.top.px]="getTop(table)"
+        [ngClass]="getZoneClass(table.zone)"
+        title="Table {{table.tableNumber}} ({{table.posX}}, {{table.posY}})"
+      >
+        {{table.tableNumber}}
+      </div>
+    }
+  </div>
+</div>
