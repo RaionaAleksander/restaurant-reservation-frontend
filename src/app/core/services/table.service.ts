@@ -26,4 +26,7 @@ export class TableService {
     return this.http.get<Table[]>(this.apiUrl, { params });
   }
 
+  getAllTables(): Observable<Table[]> {
+    return this.http.get<Table[]>(this.apiUrl);
+  }
 }

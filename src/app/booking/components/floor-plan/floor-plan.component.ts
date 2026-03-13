@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
 import { Table } from '../../../models/table.model';
 import { CommonModule } from '@angular/common';
+import { TableService } from '../../../core/services/table.service';
 
 @Component({
   selector: 'app-floor-plan',
@@ -12,6 +13,8 @@ import { CommonModule } from '@angular/common';
 export class FloorPlanComponent implements OnInit {
 
   @Input() tables: Table[] = [];
+
+  allTables: Table[] = [];
 
   scale = 1;           // zoom
   offsetX = 0;         // pan X
@@ -31,13 +34,19 @@ export class FloorPlanComponent implements OnInit {
   @ViewChild('layoutImage') layoutImage!: ElementRef<HTMLImageElement>;
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef<HTMLDivElement>;
 
-  constructor() {}
+  constructor(private tableService: TableService) {}
 
   ngOnInit(): void {
-    this.updateDimensions();
+    this.tableService.getAllTables().subscribe(data => {
+      this.allTables = data;
+      this.updateDimensions();
+    });
   }
 
   ngOnChanges() {
+    /*if (this.tables?.length) {
+      this.allTables = this.tables.map(t => ({ ...t }));
+    }*/
     this.updateDimensions();
   }
 
@@ -48,13 +57,6 @@ export class FloorPlanComponent implements OnInit {
 
   @HostListener('window:resize')
   onWindowResize() {
-    this.updateDimensions();
-  }
-
-  onImageLoad() {
-    const img = this.layoutImage.nativeElement;
-    this.originalWidth = img.naturalWidth;
-    this.originalHeight = img.naturalHeight;
     this.updateDimensions();
   }
 
