@@ -63,4 +63,19 @@ export class BookingFormComponent {
       filters[key] = value;
     }
   }
+
+  isSubmitDisabled(): boolean {
+
+    // recommendation requires capacity
+    if (this.recommend && !this.capacity) {
+      return true;
+    }
+
+    // time range must be complete
+    if ((this.startTime && !this.endTime) || (!this.startTime && this.endTime)) {
+      return true;
+    }
+
+    return false;
+  }
 }

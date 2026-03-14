@@ -73,25 +73,45 @@
       Preferences
     </p>
 
-    <div class="flex flex-wrap gap-4">
+    <div class="flex flex-wrap gap-6">
 
-      <label class="flex items-center gap-2">
-        <input type="checkbox" [(ngModel)]="nearWindow">
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input 
+          type="checkbox" 
+          [(ngModel)]="nearWindow"
+          name="nearWindow"
+          class="w-4 h-4"
+        />
         <span>Near window</span>
       </label>
 
-      <label class="flex items-center gap-2">
-        <input type="checkbox" [(ngModel)]="quietCorner">
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input 
+          type="checkbox" 
+          [(ngModel)]="quietCorner"
+          name="quietCorner"
+          class="w-4 h-4"
+        />
         <span>Quiet corner</span>
       </label>
 
-      <label class="flex items-center gap-2">
-        <input type="checkbox" [(ngModel)]="nearKidsZone">
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input 
+          type="checkbox" 
+          [(ngModel)]="nearKidsZone"
+          name="nearKidsZone"
+          class="w-4 h-4"
+        />
         <span>Kids zone</span>
       </label>
 
-      <label class="flex items-center gap-2">
-        <input type="checkbox" [(ngModel)]="accessible">
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input 
+          type="checkbox" 
+          [(ngModel)]="accessible"
+          name="accessible"
+          class="w-4 h-4"
+        />
         <span>Accessible</span>
       </label>
 
@@ -100,9 +120,41 @@
   </div>
 
   <!-- Recommendation -->
-  <div class="mt-4">
+  <div class="mt-6">
 
-    <label class="flex items-center gap-2">
+    <h3 class="text-md font-semibold text-gray-800">
+      Smart recommendation
+    </h3>
+
+    <p class="text-sm text-gray-500 mt-2 mb-3 leading-relaxed">
+      Let the system suggest the best table for you based on your preferences.
+      Preferences will act as soft preferences rather than strict filters.
+    </p>
+
+    <p class="text-sm text-gray-500 mb-3">
+      The top tables will be highlighted on the map:
+    </p>
+
+    <div class="flex flex-col gap-4 text-sm mb-4">
+      <span class="flex items-center gap-1">
+        🥇 <span class="text-yellow-400 font-medium">Best match</span>
+      </span>
+
+      <span class="flex items-center gap-1">
+        🥈 <span class="text-gray-300 font-medium">Great option</span>
+      </span>
+
+      <span class="flex items-center gap-1">
+        🥉 <span class="text-amber-700 font-medium">Good option</span>
+      </span>
+    </div>
+
+    <p class="text-sm text-gray-500 mb-4">
+      To generate recommendations the system must know the
+      <span class="font-medium">number of guests</span>.
+    </p>
+
+    <label class="flex items-center mt-2 gap-2 cursor-pointer">
       <input 
         type="checkbox" 
         [(ngModel)]="recommend"
@@ -119,8 +171,11 @@
 
     <button
       (click)="submit()"
-      [disabled]="!capacity"
-      class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+      [disabled]="isSubmitDisabled()"
+      class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 
+      disabled:bg-gray-400 disabled:hover:bg-gray-400
+        disabled:cursor-not-allowed
+        transition-colors"
     >
       Search Tables
     </button>
