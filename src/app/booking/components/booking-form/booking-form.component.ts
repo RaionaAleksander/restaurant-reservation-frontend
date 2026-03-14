@@ -38,20 +38,29 @@ export class BookingFormComponent {
   selectedZone: string | null = null;
 
   submit() {
-    const filters: any = {
-      capacity: Number(this.capacity),
-      startTime: this.startTime,
-      endTime: this.endTime,
-      zone: this.selectedZone,
-      nearKidsZone: this.nearKidsZone,
-      quietCorner: this.quietCorner,
-      nearWindow: this.nearWindow,
-      accessible: this.accessible,
-      recommend: true
-    };
+    const filters: any = {};
+
+    this.addFilter(filters, 'capacity', Number(this.capacity));
+    this.addFilter(filters, 'startTime', this.startTime);
+    this.addFilter(filters, 'endTime', this.endTime);
+    this.addFilter(filters, 'zone', this.selectedZone);
+    this.addFilter(filters, 'nearWindow', this.nearWindow);
+    this.addFilter(filters, 'quietCorner', this.quietCorner);
+    this.addFilter(filters, 'nearKidsZone', this.nearKidsZone);
+    this.addFilter(filters, 'accessible', this.accessible);
+    this.addFilter(filters, 'recommend', this.recommend);
 
     this.tableService.getTables(filters).subscribe((tables: Table[]) => {
-      this.search.emit(tables);
+      this.search.emit({
+        tables: tables,
+        recommend: this.recommend
+      });
     });
+  }
+
+  addFilter(filters: any, key: string, value: any) {
+    if (value !== null && value !== undefined && value !== false && value !== '') {
+      filters[key] = value;
+    }
   }
 }

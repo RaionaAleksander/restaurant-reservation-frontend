@@ -12,8 +12,12 @@ import { Table } from '../../../models/table.model';
 })
 export class SearchPageComponent {
   filteredTables: Table[] = [];
+  recommendMode = false;
 
-  updateFilteredTables(tables: Table[]) {
-    this.filteredTables = tables;
+  updateFilteredTables(data: { tables: Table[]; recommend: boolean }) {
+    this.filteredTables = data.tables;
+    this.recommendMode = data.recommend;
+
+    console.log("Recommend mode:", this.recommendMode);
   }
 }

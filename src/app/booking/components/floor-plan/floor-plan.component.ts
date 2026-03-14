@@ -14,6 +14,8 @@ export class FloorPlanComponent implements OnInit {
 
   @Input() tables: Table[] = [];
 
+  @Input() recommendMode = false;
+
   allTables: Table[] = [];
 
   scale = 1;           // zoom
@@ -160,20 +162,18 @@ export class FloorPlanComponent implements OnInit {
     }
   }
 
-  /*getTableClass(table: Table): string {
-    const isAvailable = this.tables.some(t => t.id === table.id);
-
-    if (!isAvailable) {
-      return 'bg-gray-400';
-    }
-
-    return this.getZoneClass(table.zone);
-  }*/
-
   getTableClass(table: Table): string {
     const isAvailable = this.tables.some(t => t.id === table.id);
-    if (!isAvailable) {
-      return 'bg-gray-400';
+    if (!isAvailable) return 'bg-gray-800';
+
+    if (this.recommendMode) {
+
+      const sorted = [...this.tables].sort((a,b) => (b.score ?? 0) - (a.score ?? 0));
+
+      if (sorted[0]?.id === table.id) return 'bg-yellow-400';
+      if (sorted[1]?.id === table.id) return 'bg-gray-300';
+      if (sorted[2]?.id === table.id) return 'bg-amber-700';
+
     }
 
     return this.getZoneClass(table.zone);
