@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { SearchPageComponent } from './booking/pages/search-page/search-page.component';
 import { CreateReservationPageComponent } from './booking/pages/create-reservation-page/create-reservation-page.component';
+import { ReservationsPageComponent } from './booking/pages/reservations-page/reservations-page.component';
 
 export const routes: Routes = [
   {
@@ -9,7 +10,11 @@ export const routes: Routes = [
     component: SearchPageComponent
   },
   { 
-    path: 'create-reservation', 
+    path: 'booking', 
     component: CreateReservationPageComponent 
   },
+  { 
+    path: 'reservations', 
+    component: ReservationsPageComponent 
+  }
 ];
