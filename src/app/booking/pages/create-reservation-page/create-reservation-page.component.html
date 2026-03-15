@@ -1,0 +1,7 @@
+<div class="p-4 max-w-3xl mx-auto">
+  <app-create-reservation-form
+    [selectedTable]="selectedTable"
+    [preFilledData]="preFilledData"
+    (reservationCreated)="onReservationSuccess()"
+  ></app-create-reservation-form>
+</div>
