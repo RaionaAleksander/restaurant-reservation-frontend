@@ -6,4 +6,9 @@ export interface Table {
   posX: number;
   posY: number;
   score?: number;
+
+  nearWindow?: boolean;
+  quietCorner?: boolean;
+  nearKidsZone?: boolean;
+  accessible?: boolean;
 }
