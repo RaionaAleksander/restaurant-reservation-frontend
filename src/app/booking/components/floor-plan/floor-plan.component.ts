@@ -18,20 +18,20 @@ export class FloorPlanComponent implements OnInit {
 
   allTables: Table[] = [];
 
-  scale = 1;           // zoom
-  offsetX = 0;         // pan X
-  offsetY = 0;         // pan Y
+  scale: number = 1;           // zoom
+  offsetX: number = 0;         // pan X
+  offsetY: number = 0;         // pan Y
 
-  isDragging = false;
-  lastX = 0;
-  lastY = 0;
+  isDragging: boolean = false;
+  lastX: number = 0;
+  lastY: number = 0;
 
-  originalWidth = 0;
-  originalHeight = 0;
-  displayedWidth = 0;
-  displayedHeight = 0;
+  originalWidth: number = 0;
+  originalHeight: number = 0;
+  displayedWidth: number = 0;
+  displayedHeight: number = 0;
 
-  containerHeight = 0;
+  containerHeight: number = 0;
 
   @ViewChild('layoutImage') layoutImage!: ElementRef<HTMLImageElement>;
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef<HTMLDivElement>;
@@ -46,7 +46,7 @@ export class FloorPlanComponent implements OnInit {
     });
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     console.log('Filtered tables received:', this.tables);
 
     this.updateDimensions();
@@ -58,11 +58,11 @@ export class FloorPlanComponent implements OnInit {
   }
 
   @HostListener('window:resize')
-  onWindowResize() {
+  onWindowResize(): void {
     this.updateDimensions();
   }
 
-  updateDimensions() {
+  updateDimensions(): void {
     if (!this.layoutImage) return;
 
     const img = this.layoutImage.nativeElement;
@@ -89,7 +89,7 @@ export class FloorPlanComponent implements OnInit {
     return table.posY * (this.displayedHeight / this.originalHeight) - 16;
   }
 
-  onWheel(event: WheelEvent) {
+  onWheel(event: WheelEvent): void {
     event.preventDefault();
     const delta = event.deltaY > 0 ? -0.1 : 0.1;
     this.scale = Math.max(1, Math.min(3, this.scale + delta));
@@ -97,7 +97,7 @@ export class FloorPlanComponent implements OnInit {
     this.clampOffsets();
   }
 
-  startDrag(event: PointerEvent) {
+  startDrag(event: PointerEvent): void {
     event.preventDefault();
 
     this.isDragging = true;
@@ -112,12 +112,12 @@ export class FloorPlanComponent implements OnInit {
     this.mapContainer.nativeElement.style.cursor = 'grabbing';
   }
 
-  stopDrag(event?: PointerEvent) {
+  stopDrag(event?: PointerEvent): void {
     this.isDragging = false;
     this.mapContainer.nativeElement.style.cursor = 'grab';
   }
 
-  drag(event: PointerEvent) {
+  drag(event: PointerEvent): void{
     if (!this.isDragging) return;
     const dx = event.clientX - this.lastX;
     const dy = event.clientY - this.lastY;
@@ -129,7 +129,7 @@ export class FloorPlanComponent implements OnInit {
     this.clampOffsets();
   }
 
-  clampOffsets() {
+  clampOffsets(): void {
     if (!this.mapContainer) return;
 
     const container = this.mapContainer.nativeElement;

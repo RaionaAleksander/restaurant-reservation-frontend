@@ -8,11 +8,11 @@ import { Table } from '../../models/table.model';
 })
 export class TableService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/tables';
+  private apiUrl: string = 'http://localhost:8080/api/v1/tables';
 
   constructor(private http: HttpClient) {}
 
-  getTables(filters?: any) {
+  getTables(filters?: any): Observable<Table[]> {
     let params: any = {};
 
     if (filters) {

@@ -16,16 +16,16 @@ export class CreateReservationFormComponent {
   @Output() reservationCreated = new EventEmitter<void>();
 
   tableId!: number;
-  customerName = '';
-  startTime = '';
-  endTime = '';
+  customerName: string = '';
+  startTime: string = '';
+  endTime: string = '';
   partySize: number | null = null;
 
-  errorMessage = '';
+  errorMessage: string = '';
 
   constructor(private reservationService: ReservationService) {}
 
-  submit() {
+  submit(): void {
     if (!this.selectedTable || !this.customerName || !this.startTime || !this.endTime || !this.partySize) {
       this.errorMessage = 'Please fill all required fields.';
       return;
@@ -40,12 +40,12 @@ export class CreateReservationFormComponent {
     };
 
     this.reservationService.createReservation(dto).subscribe({
-      next: () => {
+      next: (): void => {
         this.errorMessage = '';
         this.reservationCreated.emit();
         alert('Reservation created successfully!');
       },
-      error: (err) => {
+      error: (err: any): void => {
         this.errorMessage = err.error?.message || 'Error creating reservation.';
       }
     });

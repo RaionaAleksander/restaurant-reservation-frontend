@@ -21,14 +21,14 @@ export class BookingFormComponent {
   startTime?: string;
   endTime?: string;
 
-  nearWindow = false;
-  quietCorner = false;
-  nearKidsZone = false;
-  accessible = false;
+  nearWindow: boolean = false;
+  quietCorner: boolean = false;
+  nearKidsZone: boolean = false;
+  accessible: boolean = false;
 
-  recommend = false;
+  recommend: boolean = false;
 
-  zones = [
+  zones: { value: string | null; label: string }[] = [
     { value: null, label: '-' },
     { value: 'PRIVATE_ROOM', label: 'Private room' },
     { value: 'TERRACE', label: 'Terrace' },
@@ -37,7 +37,7 @@ export class BookingFormComponent {
 
   selectedZone: string | null = null;
 
-  submit() {
+  submit(): void {
     const filters: any = {};
 
     this.addFilter(filters, 'capacity', Number(this.capacity));

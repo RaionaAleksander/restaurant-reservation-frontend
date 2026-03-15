@@ -15,17 +15,17 @@ import { CommonModule } from '@angular/common';
 export class SearchPageComponent {
   filteredTables: Table[] = [];
   allTables: Table[] = [];
-  recommendMode = false;
+  recommendMode: boolean = false;
 
   constructor(private tableService: TableService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.tableService.getAllTables().subscribe(data => {
       this.allTables = data;
     });
   }
 
-  updateFilteredTables(data: { tables: Table[]; recommend: boolean }) {
+  updateFilteredTables(data: { tables: Table[]; recommend: boolean }): void {
     this.filteredTables = data.tables;
     this.recommendMode = data.recommend;
 
@@ -41,7 +41,7 @@ export class SearchPageComponent {
     }
   }
 
-  getFeatures(table: any): string {
+  getFeatures(table: Table): string {
 
     const features: string[] = [];
 
